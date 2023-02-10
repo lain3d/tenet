@@ -171,7 +171,7 @@ class TraceAnalysis(object):
             # in which case we will have to perform more aggressive analysis
             #
 
-            if (hit / seen) > 0.95:
+            if seen > 0 and (hit / seen) > 0.95:
                 #print(f"ASLR Slide: {k:08X} Quality: {hit/seen:0.2f} (h {hit} s {seen} e {expected})")
                 slide = k
                 break

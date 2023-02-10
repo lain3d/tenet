@@ -55,7 +55,7 @@ import collections
 
 try:
     from tenet.util.log import pmsg
-    from tenet.trace.arch import ArchAMD64, ArchX86
+    from tenet.trace.arch import ArchAMD64, ArchX86, ArchARM
     from tenet.trace.types import TraceMemory
 
 #
@@ -65,7 +65,7 @@ try:
 #
 
 except ImportError:
-    from arch import ArchAMD64, ArchX86
+    from arch import ArchAMD64, ArchX86, ArchARM
     from .types import TraceMemory 
     pmsg = print
 
@@ -513,7 +513,8 @@ class TraceFile(object):
         if ArchAMD64.MAGIC == magic:
             self.arch = ArchAMD64()
         else:
-            self.arch = ArchX86()
+            # self.arch = ArchX86()
+            self.arch = ArchARM()
 
     def _fetch_hash(self, filepath):
         """
@@ -1242,6 +1243,7 @@ class TraceSegment(object):
         self.id = info.id
         self.base_idx = info.base_idx
         self.length = info.length
+        print(f'TOTAL LENGTH: {self.length}')
 
         if info.ip_num == 0:
             raise ValueError("Empty trace file (ip_num == 0)")

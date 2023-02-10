@@ -13,7 +13,7 @@ from tenet.breakpoints import BreakpointController
 from tenet.ui.trace_view import TraceDock
 
 from tenet.types import BreakpointType
-from tenet.trace.arch import ArchAMD64, ArchX86
+from tenet.trace.arch import ArchAMD64, ArchX86, ArchARM
 from tenet.trace.reader import TraceReader
 from tenet.integration.api import disassembler, DisassemblerContextAPI
 
@@ -54,7 +54,8 @@ class TenetContext(object):
         if disassembler[self].is_64bit():
             self.arch = ArchAMD64()
         else:
-            self.arch = ArchX86()
+            # self.arch = ArchX86()
+            self.arch = ArchARM()
         
         # this will hold the trace reader when a trace has been loaded
         self.reader = None
@@ -155,6 +156,7 @@ class TenetContext(object):
         # chosen states of execution
         #
 
+        print(f'MY ARCH: {self.arch}')
         self.reader = TraceReader(filepath, self.arch, disassembler[self])
         pmsg(f"Loaded trace {self.reader.trace.filepath}")
         pmsg(f"- {self.reader.trace.length:,} instructions...")
